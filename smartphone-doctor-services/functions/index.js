@@ -8,17 +8,13 @@ const helloWorld = require("./src/hello-world");
 const sayHi = require("./src/say-hi");
 const adminSample = require("./src/admin-sample");
 
-// Prepare the Firebase Admin SDK's private key.
-let firebaseAdminPrivateKey = functions.config().admin.private_key.replace("+bil+", " ");
-firebaseAdminPrivateKey = firebaseAdminPrivateKey.replace("+ger+", "\n");
-
 // Initialize the Firebase Admin SDK.
 admin.initializeApp({
     credential: admin.credential.cert({
         type: functions.config().admin.type,
         project_id: functions.config().admin.project_id,
         private_key_id: functions.config().admin.private_key_id,
-        private_key: firebaseAdminPrivateKey,
+        private_key: functions.config().admin.private_key,
         client_email: functions.config().admin.client_email,
         client_id: functions.config().admin.client_id,
         auth_uri: functions.config().admin.auth_uri,

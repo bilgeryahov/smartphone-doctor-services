@@ -14,7 +14,7 @@ admin.initializeApp({
         type: functions.config().admin.type,
         project_id: functions.config().admin.project_id,
         private_key_id: functions.config().admin.private_key_id,
-        private_key: functions.config().admin.private_key.replace(/\\n/g, '\n').replace(/\\u0020/g, '\u0020'),
+        private_key: functions.config().admin.private_key.replace(/\\n/g, '\n'),
         client_email: functions.config().admin.client_email,
         client_id: functions.config().admin.client_id,
         auth_uri: functions.config().admin.auth_uri,

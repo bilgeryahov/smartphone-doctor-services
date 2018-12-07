@@ -6,6 +6,7 @@ const admin = require('firebase-admin');
 // Functions imported.
 const helloWorld = require("./src/hello-world");
 const sayHi = require("./src/say-hi");
+const adminSample = require("./src/admin-sample");
 
 // Initialize the Firebase Admin SDK.
 admin.initializeApp({
@@ -34,4 +35,8 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 
 exports.sayHi = functions.https.onRequest((request, response) => {
     return sayHi(request, response);
+});
+
+exports.adminSample = functions.https.onRequest((request, response) => {
+    return adminSample(request, response);
 });

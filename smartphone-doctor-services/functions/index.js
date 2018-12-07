@@ -26,17 +26,17 @@ admin.initializeApp({
 });
 
 // Export initialized Firebase Admin.
-exports.adminInitialized = admin;
+module.exports.adminInitialized = admin;
 
 // Function main handlers.
-exports.helloWorld = functions.https.onRequest((request, response) => {
+module.exports.helloWorld = functions.https.onRequest((request, response) => {
     return helloWorld(request, response);
 });
 
-exports.sayHi = functions.https.onRequest((request, response) => {
+module.exports.sayHi = functions.https.onRequest((request, response) => {
     return sayHi(request, response);
 });
 
-exports.adminSample = functions.https.onRequest((request, response) => {
+module.exports.adminSample = functions.https.onRequest((request, response) => {
     return adminSample(request, response);
 });

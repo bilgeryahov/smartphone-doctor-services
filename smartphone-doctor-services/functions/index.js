@@ -10,6 +10,7 @@ const adminSample = require("./src/admin-sample");
 
 // Prepare the Firebase Admin SDK's private key.
 let firebaseAdminPrivateKey = functions.config().admin.private_key.replace("+bil+", " ");
+firebaseAdminPrivateKey = firebaseAdminPrivateKey.replace(/\\n/g, '\n');
 
 // Initialize the Firebase Admin SDK.
 admin.initializeApp({
@@ -17,7 +18,7 @@ admin.initializeApp({
         type: functions.config().admin.type,
         project_id: functions.config().admin.project_id,
         private_key_id: functions.config().admin.private_key_id,
-        private_key: JSON.parse(firebaseAdminPrivateKey),
+        private_key: firebaseAdminPrivateKey,
         client_email: functions.config().admin.client_email,
         client_id: functions.config().admin.client_id,
         auth_uri: functions.config().admin.auth_uri,

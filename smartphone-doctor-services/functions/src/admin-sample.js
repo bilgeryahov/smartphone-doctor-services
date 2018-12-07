@@ -1,9 +1,9 @@
 "use strict"
 
-import adminInitialized from "../index";
+const admin = require('firebase-admin');
 
 module.exports = (request, response) => {
-    adminInitialized.auth().getUserByEmail("test@test.test")
+    admin.auth().getUserByEmail("test@test.test")
         .then(function (userRecord) {
             console.log("Successfully fetched user data: ", userRecord.toJSON());
             response.send("All Good!");

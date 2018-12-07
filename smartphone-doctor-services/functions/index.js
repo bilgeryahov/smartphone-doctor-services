@@ -25,18 +25,15 @@ admin.initializeApp({
     databaseURL: 'https://smartphone-doctor.firebaseio.com'
 });
 
-// Export initialized Firebase Admin.
-module.exports.adminInitialized = admin;
-
 // Function main handlers.
-module.exports.helloWorld = functions.https.onRequest((request, response) => {
+exports.helloWorld = functions.https.onRequest((request, response) => {
     return helloWorld(request, response);
 });
 
-module.exports.sayHi = functions.https.onRequest((request, response) => {
+exports.sayHi = functions.https.onRequest((request, response) => {
     return sayHi(request, response);
 });
 
-module.exports.adminSample = functions.https.onRequest((request, response) => {
+exports.adminSample = functions.https.onRequest((request, response) => {
     return adminSample(request, response);
 });

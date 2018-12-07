@@ -1,10 +1,31 @@
 "use strict"
 
 const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 
 // Functions imported.
 const helloWorld = require("./src/hello-world");
 const sayHi = require("./src/say-hi");
+
+// Initialize the Firebase Admin SDK.
+admin.initializeApp({
+    credential: admin.credential.cert({
+        type: functions.config().admin.type,
+        project_id: functions.config().admin.project_id,
+        private_key_id: functions.config().admin.private_key_id,
+        private_key: functions.config().admin.private_key,
+        client_email: functions.config().admin.client_email,
+        client_id: functions.config().admin.client_id,
+        auth_uri: functions.config().admin.auth_uri,
+        token_uri: functions.config().admin.token_uri,
+        auth_provider_x509_cert_url: functions.config().admin.auth_provider_x509_cert_url,
+        client_x509_cert_url: functions.config().admin.client_x509_cert_url
+    }),
+    databaseURL: 'https://smartphone-doctor.firebaseio.com'
+});
+
+// Export initialized Firebase Admin.
+exports.adminInitialized = admin;
 
 // Function main handlers.
 exports.helloWorld = functions.https.onRequest((request, response) => {

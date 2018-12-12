@@ -7,7 +7,6 @@ script:
   - cd ./functions/
   - npm install
   - npm test
-  - cd ..
   # Set the Firebase Functions ADMIN SDK config values.
   - firebase functions:config:set admin.type=$type
   - firebase functions:config:set admin.project_id=$project_id

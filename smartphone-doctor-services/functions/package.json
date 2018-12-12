@@ -3,7 +3,8 @@
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "lint": "eslint .",
-    "serve": "NODE_ENV=development firebase serve --only functions",
+    "serve-m": "NODE_ENV=development firebase serve --only functions",
+    "serve-w": "set NODE_ENV=development&& firebase serve --only functions",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "NODE_ENV=production firebase deploy --only functions --token $FIREBASE_TOKEN",

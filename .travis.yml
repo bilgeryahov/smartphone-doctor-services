@@ -19,7 +19,7 @@ script:
   - firebase functions:config:set admin.token_uri=$token_uri
   - firebase functions:config:set admin.auth_provider_x509_cert_url=$auth_provider_x509_cert_url
   # Deploy.
-  - firebase deploy --only functions --token $FIREBASE_TOKEN
+  - npm run-script deploy
 branches:
   only:
   - master

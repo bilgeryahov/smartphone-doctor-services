@@ -73,7 +73,11 @@ if (process.env.NODE_ENV === "production") {
     console.error("#index.js: NODE_ENV has not been set! Aborting.");
 }
 
-// Function main handlers.
+// -----------------------------------------------------------
+//                      Function handlers.
+// -----------------------------------------------------------
+
+// SAMPLES.
 exports.helloWorld = functions.https.onRequest((request, response) => {
     return helloWorld(request, response);
 });
@@ -81,3 +85,5 @@ exports.helloWorld = functions.https.onRequest((request, response) => {
 exports.adminSample = functions.https.onRequest((request, response) => {
     return adminSample(request, response);
 });
+
+// ADMIN-SDK.

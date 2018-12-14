@@ -1,3 +1,14 @@
+/**
+ * @file index.js
+ *
+ * Entry point for Firebase functions.
+ * Initialization of the Admin SDK.
+ * 
+ * @author Bilger Yahov
+ * @version 1.0.0
+ * @copyright © 2018 Bilger Yahov, all rights reserved.
+ */
+
 "use strict"
 
 const functions = require('firebase-functions');
@@ -5,9 +16,8 @@ const admin = require('firebase-admin');
 const { execSync } = require('child_process');
 
 // Functions imported.
-const helloWorld = require("./src/hello-world");
-const sayHi = require("./src/say-hi");
-const adminSample = require("./src/admin-sample");
+const helloWorld = require("./src/samples/hello-world");
+const adminSample = require("./src/samples/admin-sample");
 
 /**
  * Initializes the Firebase Admin SDK. 
@@ -66,10 +76,6 @@ if (process.env.NODE_ENV === "production") {
 // Function main handlers.
 exports.helloWorld = functions.https.onRequest((request, response) => {
     return helloWorld(request, response);
-});
-
-exports.sayHi = functions.https.onRequest((request, response) => {
-    return sayHi(request, response);
 });
 
 exports.adminSample = functions.https.onRequest((request, response) => {

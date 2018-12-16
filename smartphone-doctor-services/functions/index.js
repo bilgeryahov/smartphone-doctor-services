@@ -18,6 +18,7 @@ const { execSync } = require('child_process');
 // Functions imported.
 const helloWorld = require("./src/samples/hello-world");
 const adminSample = require("./src/samples/admin-sample");
+const register = require("./src/admin-sdk/register");
 
 /**
  * Initializes the Firebase Admin SDK. 
@@ -87,3 +88,6 @@ exports.adminSample = functions.https.onRequest((request, response) => {
 });
 
 // ADMIN-SDK.
+exports.register = functions.https.onRequest((request, response) => {
+    return register(request, response);
+});

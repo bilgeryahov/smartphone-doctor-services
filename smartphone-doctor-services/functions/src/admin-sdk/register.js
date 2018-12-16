@@ -17,7 +17,7 @@ const cors = require('cors')({
 });
 
 /**
- * 
+ * TODO: Description.
  */
 module.exports = (request, response) => {
     // Allow Cross-Origin-Resource-Sharing.
@@ -45,15 +45,12 @@ module.exports = (request, response) => {
         })
             .then(function (userRecord) {
                 console.log("#register.js: Successfully created new user: ", userRecord.uid);
-
-                // Handle different messages for agents, for clients.
-                // Keep in mind the e-mail address verification. 
-                // Keep in mind the disabled -> enabled by an App onwer.
-
-                return response.status(201).json({ message: '' });
+                return response.status(201).json({ message: { isAgent: request.body.isAgent, log: "Account created!" } });
             })
             .catch(function (error) {
-                console.log("Error creating new user:", error);
+                // TODO: Handle cases which need to be reported to the user.
+                console.log("#register.js: Error creating new user: ", JSON.stringify(error));
+                return response.status(500).json({ error: "Failed to create a new user!" });
             });
     });
 };
@@ -62,10 +59,15 @@ module.exports = (request, response) => {
 //                      Utilities.
 // -----------------------------------------------------------
 
+/**
+ * 
+ * TODO: Description.
+ * 
+ * @param {*} request
+ * @returns { boolean } 
+ */
 function inputCheck(request) {
-    return (request.body.email &&
-        request.body.password &&
-        request.body.isAgent &&
+    return (
         typeof request.body.email === "string" &&
         typeof request.body.password === "string" &&
         typeof request.body.isAgent === "boolean" &&

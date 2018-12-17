@@ -17,7 +17,13 @@ const cors = require('cors')({
 });
 
 /**
- * TODO: Description.
+ * Goes through a set of checks before attempting to create an account.
+ * All request methods different from POST are disallowed.
+ * There's an input validation, which makes sure that the following three
+ * body parameters are present and valid:
+ *  -> e-mail address { string }
+ *  -> password { string }
+ *  -> isAgent { boolean }
  */
 module.exports = (request, response) => {
     // Allow Cross-Origin-Resource-Sharing.
@@ -48,8 +54,15 @@ module.exports = (request, response) => {
                 return response.status(201).json({ message: { isAgent: request.body.isAgent, log: "Account created!" } });
             })
             .catch(function (error) {
-                // TODO: Handle cases which need to be reported to the user.
                 console.log("#register.js: Error creating new user: ", JSON.stringify(error));
+                // TODO: Not the best way of doing it, since the error message
+                // that comes from the Admin SDK can contain sensitive information.
+                if (error.code) {
+                    return response.status(500).json({
+                        error: "Failed to create a new user!",
+                        code: error.code
+                    });
+                }
                 return response.status(500).json({ error: "Failed to create a new user!" });
             });
     });
@@ -61,7 +74,8 @@ module.exports = (request, response) => {
 
 /**
  * 
- * TODO: Description.
+ * Validation check for the input provided to register
+ * a new user.
  * 
  * @param {*} request
  * @returns { boolean } 

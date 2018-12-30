@@ -58,7 +58,7 @@ module.exports = (request) => {
             })
             .catch(function (error) {
                 // TODO: Not the best way of doing it, since the error message
-                // that comes from the Admin SDK can contain sensitive information.
+                // that comes from the Admin SDK might contain sensitive information.
                 console.error("#register.js: Error while creating new user: " + JSON.stringify(error));
                 let messageCode = error.code || messageCodes.auth.failure;
                 return reject(new responseBuilder.Response("Failed to create a new user!", messageCode,

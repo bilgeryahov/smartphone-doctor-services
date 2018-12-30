@@ -9,7 +9,7 @@
     "start": "npm run shell",
     "deploy": "NODE_ENV=production firebase deploy --only functions --token $FIREBASE_TOKEN",
     "logs": "firebase functions:log",
-    "test": "eslint . && mocha"
+    "test": "eslint . && mocha --recursive"
   },
   "dependencies": {
     "firebase-admin": "^6.0.0",

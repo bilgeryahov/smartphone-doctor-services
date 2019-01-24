@@ -26,11 +26,11 @@ const TEST_USER = "test@test.test";
 module.exports = (request) => {
     return new Promise((resolve, reject) => {
         admin.auth().getUserByEmail(TEST_USER)
-            .then(function (userRecord) {
+            .then((userRecord) => {
                 console.log("#admin-sample.js: Successfully fetched user data: " + JSON.stringify(userRecord));
                 return resolve(new responseBuilder.Response("Firebase Admin SDK is up!", messageCodes.samples.success, statusCodes.OK));
             })
-            .catch(function (error) {
+            .catch((error) => {
                 console.error("#admin-sample.js: Error while fetching user data: " + JSON.stringify(error));
                 return reject(new responseBuilder.Response("Firebase Admin SDK is down!", messageCodes.samples.failure,
                     statusCodes.InternalServerError));

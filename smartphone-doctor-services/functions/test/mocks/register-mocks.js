@@ -65,7 +65,7 @@ module.exports = {
             query: "",
             body: {
                 isAgent: true,
-                email: "",
+                email: "a@a.a",
                 password: "test1234"
             }
         },

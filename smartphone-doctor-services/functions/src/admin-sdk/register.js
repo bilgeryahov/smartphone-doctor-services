@@ -5,7 +5,7 @@
  * platform.
  * 
  * @author Bilger Yahov
- * @version 1.1.0
+ * @version 1.2.0
  * @copyright © 2018 - 2019 Bilger Yahov, all rights reserved.
  */
 
@@ -16,6 +16,7 @@ const admin = require('firebase-admin');
 const responseBuilder = require("../common-js/response-builder");
 const messageCodes = require("../common-js/message-codes");
 const statusCodes = require("../common-js/status-codes");
+const inputValidationErrors = require("../common-js/validation-errors").REGISTER;
 
 /**
  * Goes through a set of checks before attempting to create an account.
@@ -34,8 +35,9 @@ module.exports = (request) => {
                 statusCodes.MethodNotAllowed));
         }
         // Input validation.
-        if (!inputCheck(request)) {
-            return reject(new responseBuilder.Response("Badly formatted input values!", messageCodes.httpRequest.failure,
+        let inputValidationActualResult = inputCheck(request);
+        if (!inputValidationActualResult.success) {
+            return reject(new responseBuilder.Response(inputValidationActualResult.debug, messageCodes.httpRequest.failure,
                 statusCodes.BadRequest));
         }
         // If the new user is an agent, then make sure to disable initially.
@@ -45,18 +47,18 @@ module.exports = (request) => {
             disabled: request.body.isAgent
         };
         // Proceed with creating the account.
-        admin.auth().createUser({
+        return admin.auth().createUser({
             email: initialUserData.email,
             emailVerified: false,
             password: initialUserData.password,
             disabled: initialUserData.disabled
         })
-            .then(function (userRecord) {
+            .then((userRecord) => {
                 console.log("#register.js: Successfully created new user: " + userRecord.uid);
                 return resolve(new responseBuilder.Response({ info: "Account created!", isAgent: request.body.isAgent },
                     messageCodes.auth.success, statusCodes.Created));
             })
-            .catch(function (error) {
+            .catch((error) => {
                 // TODO: Not the best way of doing it, since the error message
                 // that comes from the Admin SDK might contain sensitive information.
                 console.error("#register.js: Error while creating new user: " + JSON.stringify(error));
@@ -71,21 +73,48 @@ module.exports = (request) => {
 //                      Utilities.
 // -----------------------------------------------------------
 
-/**
- * 
- * Validation check for the input provided to register
- * a new user.
- * 
- * @param {*} request
- * @returns { boolean } 
- */
+ /**
+  * Validation check for the input provided to register
+  * a new user.
+  * 
+  * @param { Object } request 
+  * @returns { Object }
+  */
 function inputCheck(request) {
-    return (
-        typeof request.body.email === "string" &&
-        typeof request.body.password === "string" &&
-        typeof request.body.isAgent === "boolean" &&
-        request.body.email.length > 0 &&
-        request.body.password.length >= 6 &&
-        request.body.email.length < 50 &&
-        request.body.password.length < 50);
+    let result = {
+        success: true,
+        debug: "Good to go!"
+    };
+    if (!request.body.email) {
+        result.success = false;
+        result.debug = inputValidationErrors.EMAIL_MANDATORY;
+    } else if (!request.body.password) {
+        result.success = false;
+        result.debug = inputValidationErrors.PW_MANDATORY;
+    } else if (!request.body.isAgent) {
+        result.success = false;
+        result.debug = inputValidationErrors.IA_MANDATORY;
+    } else if (typeof request.body.email !== "string") {
+        result.success = false;
+        result.debug = inputValidationErrors.EMAIL_STRING;
+    } else if (typeof request.body.password !== "string") {
+        result.success = false;
+        result.debug = inputValidationErrors.PW_STRING;
+    } else if (typeof request.body.isAgent !== "boolean") {
+        result.success = false;
+        result.debug = inputValidationErrors.IA_BOOLEAN;
+    } else if (request.body.email.length < 6) {
+        result.success = false;
+        result.debug = inputValidationErrors.EMAIL_SHORT;
+    } else if (request.body.password.length < 6) {
+        result.success = false;
+        result.debug = inputValidationErrors.PW_SHORT;
+    } else if (request.body.email.length > 50) {
+        result.success = false;
+        result.debug = inputValidationErrors.EMAIL_LONG;
+    } else if (request.body.password.length > 50) {
+        result.success = false;
+        result.debug = inputValidationErrors.PW_LONG;
+    }
+    return result;
 }

@@ -12,9 +12,11 @@
     "test": "eslint . && mocha --recursive"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "firebase-admin": "^6.0.0",
     "firebase-functions": "^2.1.0",
-    "cors": "^2.8.5"
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",

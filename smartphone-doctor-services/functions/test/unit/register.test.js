@@ -7,7 +7,7 @@ const register = require("../../src/admin-sdk/register");
 
 // Utilities.
 const statusCodes = require("../../src/common-js/status-codes");
-const registerMocks = require("../mocks/register-mocks");
+const registerMocks = require("../mocks/register-mocks").UNIT;
 const inputValidationErrors = require("../../src/common-js/validation-errors").REGISTER;
 
 /**

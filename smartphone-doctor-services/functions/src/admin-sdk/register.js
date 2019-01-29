@@ -5,7 +5,7 @@
  * platform.
  * 
  * @author Bilger Yahov
- * @version 1.2.0
+ * @version 1.2.1
  * @copyright © 2018 - 2019 Bilger Yahov, all rights reserved.
  */
 
@@ -85,13 +85,13 @@ function inputCheck(request) {
         success: true,
         debug: "Good to go!"
     };
-    if (!request.body.email) {
+    if (typeof request.body.email === "undefined") {
         result.success = false;
         result.debug = inputValidationErrors.EMAIL_MANDATORY;
-    } else if (!request.body.password) {
+    } else if (typeof request.body.password === "undefined") {
         result.success = false;
         result.debug = inputValidationErrors.PW_MANDATORY;
-    } else if (!request.body.isAgent) {
+    } else if (typeof request.body.isAgent === "undefined") {
         result.success = false;
         result.debug = inputValidationErrors.IA_MANDATORY;
     } else if (typeof request.body.email !== "string") {

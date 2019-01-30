@@ -7,6 +7,7 @@ script:
   - cd ./functions/
   - npm install
   - npm run-script serve-ci &
+  - node ./warm-up-timer.js
   - npm test
   # Set the Firebase Functions ADMIN SDK config values.
   - firebase functions:config:set admin.type=$type

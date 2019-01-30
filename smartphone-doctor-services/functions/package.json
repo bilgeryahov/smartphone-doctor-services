@@ -5,15 +5,19 @@
     "lint": "eslint .",
     "serve-m": "NODE_ENV=development firebase serve --only functions",
     "serve-w": "set NODE_ENV=development&& firebase serve --only functions",
+    "serve-ci": "NODE_ENV=ci firebase serve --only functions --token $FIREBASE_TOKEN",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
     "deploy": "NODE_ENV=production firebase deploy --only functions --token $FIREBASE_TOKEN --non-interactive",
     "logs": "firebase functions:log",
-    "test": "eslint . && mocha"
-    },
+    "test": "eslint . && mocha --recursive"
+  },
   "dependencies": {
+    "cors": "^2.8.5",
     "firebase-admin": "^6.0.0",
-    "firebase-functions": "^2.1.0"
+    "firebase-functions": "^2.1.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "cross-env": "^5.2.0",

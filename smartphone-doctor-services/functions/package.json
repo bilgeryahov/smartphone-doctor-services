@@ -8,7 +8,7 @@
     "serve-ci": "NODE_ENV=ci firebase serve --only functions --token $FIREBASE_TOKEN",
     "shell": "firebase functions:shell",
     "start": "npm run shell",
-    "deploy": "NODE_ENV=production firebase deploy --only functions --token $FIREBASE_TOKEN  --non-interactive",
+    "deploy": "NODE_ENV=production firebase deploy --only functions --token $FIREBASE_TOKEN --non-interactive",
     "logs": "firebase functions:log",
     "test": "eslint . && mocha --recursive"
   },

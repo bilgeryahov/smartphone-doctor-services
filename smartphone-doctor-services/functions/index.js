@@ -6,7 +6,7 @@
  * Registration of cloud function handlers.
  * 
  * @author Bilger Yahov
- * @version 1.1.0
+ * @version 1.1.1
  * @copyright © 2018 - 2019 Bilger Yahov, all rights reserved.
  */
 
@@ -48,12 +48,12 @@ function initializeFirebaseAdmin(firebaseAdminConfig) {
 }
 
 /**
- * Check if Firebase Functions are being set for local development
- * or production execution.
+ * Check if Firebase Functions are being set for local development, production execution,
+ * or from a CI environment (for Integration Testing).
  */
 if (process.env.NODE_ENV === "production") {
     initializeFirebaseAdmin(functions.config());
-} else if (process.env.NODE_ENV === "development") {
+} else if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "ci") {
     try {
         /**
          * Get the Firebase config values (synchronously).
@@ -71,7 +71,7 @@ if (process.env.NODE_ENV === "production") {
         initializeFirebaseAdmin(config);
     } catch (exc) {
         console.error("#index.js: Had problems while trying to set Firebase Functions" +
-            " Admin SDK for local development.");
+            " Admin SDK for local development or CI testing.");
         console.error(JSON.stringify(exc));
     }
 } else {

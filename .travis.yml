@@ -6,7 +6,9 @@ script:
   - cd ./smartphone-doctor-services/
   - cd ./functions/
   - npm install
+  # Serve Firebase Functions for the Integration Testing in a non-blocking way "&".
   - npm run-script serve-ci &
+  # Warm-up the Firebase Functions Emulator.
   - node ./warm-up-timer.js
   - npm test
   # Set the Firebase Functions ADMIN SDK config values.

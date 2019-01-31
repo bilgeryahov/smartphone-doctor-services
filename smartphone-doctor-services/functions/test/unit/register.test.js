@@ -8,12 +8,12 @@ const register = require("../../src/admin-sdk/register");
 // Utilities.
 const statusCodes = require("../../src/common-js/status-codes");
 const registerMocks = require("../mocks/register-mocks").UNIT;
-const inputValidationErrors = require("../../src/common-js/validation-errors").REGISTER;
+const validationErrors = require("../../src/common-js/validation-errors").REGISTER;
 
 /**
- * Unit testing of the "register" functionality.
+ * Unit Testing of the "register" functionality.
  */
-describe("Unit testing of 'register' function.", () => {
+describe("Unit Testing of 'register' function.", () => {
     describe('#1: Will simulate a GET request.', () => {
         it('Should fail not allowing request methods different from "POST".', (done) => {
             register(registerMocks.MethodNotAllowed.GET)
@@ -35,7 +35,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.EMAIL_MANDATORY);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.EMAIL_MANDATORY);
                     return done();
                 });
         });
@@ -48,7 +48,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.PW_MANDATORY);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.PW_MANDATORY);
                     return done();
                 });
         });
@@ -61,7 +61,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.IA_MANDATORY);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.IA_MANDATORY);
                     return done();
                 });
         });
@@ -74,7 +74,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.EMAIL_STRING);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.EMAIL_STRING);
                     return done();
                 });
         });
@@ -87,7 +87,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.PW_STRING);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.PW_STRING);
                     return done();
                 });
         });
@@ -100,7 +100,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.IA_BOOLEAN);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.IA_BOOLEAN);
                     return done();
                 });
         });
@@ -113,7 +113,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.EMAIL_SHORT);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.EMAIL_SHORT);
                     return done();
                 });
         });
@@ -126,7 +126,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.PW_SHORT);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.PW_SHORT);
                     return done();
                 });
         });
@@ -139,7 +139,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.EMAIL_LONG);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.EMAIL_LONG);
                     return done();
                 });
         });
@@ -152,7 +152,7 @@ describe("Unit testing of 'register' function.", () => {
                     return done(data);
                 })
                 .catch((error) => {
-                    assert.equal(error.jsonResponse.responseMessage, inputValidationErrors.PW_LONG);
+                    assert.equal(error.jsonResponse.responseMessage, validationErrors.PW_LONG);
                     return done();
                 });
         });

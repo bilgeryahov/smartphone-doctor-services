@@ -54,7 +54,7 @@ module.exports = (request) => {
             disabled: initialUserData.disabled
         })
             .then((userRecord) => {
-                console.log("#register.js: Successfully created new user: " + userRecord.uid);
+                console.log("#register.js: Successfully created new user: " + userRecord.uid.substr(1, 3));
                 return resolve(new responseBuilder.Response({ info: "Account created!", isAgent: request.body.isAgent },
                     messageCodes.auth.success, statusCodes.Created));
             })

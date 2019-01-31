@@ -22,7 +22,7 @@ module.exports = (request) => {
     return new Promise((resolve, reject) => {
         admin.auth().getUserByEmail(globalConf.TEST_USER)
             .then((userRecord) => {
-                console.log("#admin-sample.js: Successfully fetched user data: " + JSON.stringify(userRecord));
+                console.log("#admin-sample.js: Successfully fetched user data: " + JSON.stringify(userRecord.uid.substr(1, 3)));
                 return resolve(new responseBuilder.Response("Firebase Admin SDK is up!", messageCodes.samples.success, statusCodes.OK));
             })
             .catch((error) => {

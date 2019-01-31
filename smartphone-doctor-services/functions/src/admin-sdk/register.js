@@ -5,18 +5,18 @@
  * platform.
  * 
  * @author Bilger Yahov
- * @version 1.2.1
+ * @version 1.2.2
  * @copyright © 2018 - 2019 Bilger Yahov, all rights reserved.
  */
 
 "use strict"
 
-const admin = require('firebase-admin');
+const firebaseAdmin = require('firebase-admin');
 
 const responseBuilder = require("../common-js/response-builder");
 const messageCodes = require("../common-js/message-codes");
 const statusCodes = require("../common-js/status-codes");
-const inputValidationErrors = require("../common-js/validation-errors").REGISTER;
+const validationErrors = require("../common-js/validation-errors").REGISTER;
 
 /**
  * Goes through a set of checks before attempting to create an account.
@@ -47,7 +47,7 @@ module.exports = (request) => {
             disabled: request.body.isAgent
         };
         // Proceed with creating the account.
-        return admin.auth().createUser({
+        return firebaseAdmin.auth().createUser({
             email: initialUserData.email,
             emailVerified: false,
             password: initialUserData.password,
@@ -87,34 +87,34 @@ function inputCheck(request) {
     };
     if (typeof request.body.email === "undefined") {
         result.success = false;
-        result.debug = inputValidationErrors.EMAIL_MANDATORY;
+        result.debug = validationErrors.EMAIL_MANDATORY;
     } else if (typeof request.body.password === "undefined") {
         result.success = false;
-        result.debug = inputValidationErrors.PW_MANDATORY;
+        result.debug = validationErrors.PW_MANDATORY;
     } else if (typeof request.body.isAgent === "undefined") {
         result.success = false;
-        result.debug = inputValidationErrors.IA_MANDATORY;
+        result.debug = validationErrors.IA_MANDATORY;
     } else if (typeof request.body.email !== "string") {
         result.success = false;
-        result.debug = inputValidationErrors.EMAIL_STRING;
+        result.debug = validationErrors.EMAIL_STRING;
     } else if (typeof request.body.password !== "string") {
         result.success = false;
-        result.debug = inputValidationErrors.PW_STRING;
+        result.debug = validationErrors.PW_STRING;
     } else if (typeof request.body.isAgent !== "boolean") {
         result.success = false;
-        result.debug = inputValidationErrors.IA_BOOLEAN;
+        result.debug = validationErrors.IA_BOOLEAN;
     } else if (request.body.email.length < 6) {
         result.success = false;
-        result.debug = inputValidationErrors.EMAIL_SHORT;
+        result.debug = validationErrors.EMAIL_SHORT;
     } else if (request.body.password.length < 6) {
         result.success = false;
-        result.debug = inputValidationErrors.PW_SHORT;
+        result.debug = validationErrors.PW_SHORT;
     } else if (request.body.email.length > 50) {
         result.success = false;
-        result.debug = inputValidationErrors.EMAIL_LONG;
+        result.debug = validationErrors.EMAIL_LONG;
     } else if (request.body.password.length > 50) {
         result.success = false;
-        result.debug = inputValidationErrors.PW_LONG;
+        result.debug = validationErrors.PW_LONG;
     }
     return result;
 }

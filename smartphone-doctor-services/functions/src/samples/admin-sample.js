@@ -5,7 +5,7 @@
  * Firebase Admin SDK.
  * 
  * @author Bilger Yahov
- * @version 2.0.1
+ * @version 2.0.2
  * @copyright © 2018 - 2019 Bilger Yahov, all rights reserved.
  */
 
@@ -16,11 +16,11 @@ const messageCodes = require("../common-js/message-codes");
 const statusCodes = require("../common-js/status-codes");
 const globalConf = require("../../global_conf");
 
-const admin = require('firebase-admin');
+const firebaseAdmin = require('firebase-admin');
 
 module.exports = (request) => {
     return new Promise((resolve, reject) => {
-        admin.auth().getUserByEmail(globalConf.TEST_USER)
+        firebaseAdmin.auth().getUserByEmail(globalConf.TEST_USER)
             .then((userRecord) => {
                 console.log("#admin-sample.js: Successfully fetched user data: " + JSON.stringify(userRecord.uid.substr(1, 3)));
                 return resolve(new responseBuilder.Response("Firebase Admin SDK is up!", messageCodes.samples.success, statusCodes.OK));

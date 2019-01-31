@@ -4,12 +4,12 @@ const assert = require('assert');
 const requestPromise = require("request-promise");
 
 // Utilities.
-const firebaseMessageCodes = require("../firebase-message-codes");
-const internalMessageCodes = require("../../src/common-js/message-codes");
+const firebaseMessageCodes = require("../firebase-message-codes").AUTH;
+const messageCodes = require("../../src/common-js/message-codes");
 const registerMocks = require("../mocks/register-mocks").INTEGRATION;
 
 /**
- * Generates a random string for the Users used for Integration testing.
+ * Generates a random string for the Users used for Integration Testing.
  * 
  * @returns { String }
  */
@@ -18,9 +18,9 @@ function randomString() {
 }
 
 /**
- * Integration testing of the "register" functionality.
+ * Integration Testing of the "register" functionality.
  */
-describe("Integration testing of 'register' function.", () => {
+describe("Integration Testing of 'register' function.", () => {
     describe('#1: Will try to register a User with an already taken e-mail address.', () => {
         it('Should fail indicating that this e-mail address has already been taken.', (done) => {
             requestPromise(registerMocks.takenEmailAddress)
@@ -30,7 +30,7 @@ describe("Integration testing of 'register' function.", () => {
             })
             .catch(error => {
                 if (error.error.messageCode) {
-                    assert.equal(error.error.messageCode, firebaseMessageCodes.AUTH.emailExists);
+                    assert.equal(error.error.messageCode, firebaseMessageCodes.emailExists);
                     return done();
                 }
                 // Something is wrong with this Error entity.
@@ -45,7 +45,7 @@ describe("Integration testing of 'register' function.", () => {
             requestPromise(mockToBeUsed)
             .then(data => {
                 if (data.messageCode) {
-                    assert.equal(data.messageCode, internalMessageCodes.auth.success);
+                    assert.equal(data.messageCode, messageCodes.auth.success);
                     assert.equal(data.responseMessage.isAgent, true);
                     return done(); 
                 }
@@ -65,7 +65,7 @@ describe("Integration testing of 'register' function.", () => {
             requestPromise(mockToBeUsed)
             .then(data => {
                 if (data.messageCode) {
-                    assert.equal(data.messageCode, internalMessageCodes.auth.success);
+                    assert.equal(data.messageCode, messageCodes.auth.success);
                     assert.equal(data.responseMessage.isAgent, false);
                     return done(); 
                 }
